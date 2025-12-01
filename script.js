@@ -1,30 +1,30 @@
-//your JS code here. If required.
-const sounds = ['applause' , 'boo' ,'gasp' ,'tada' ,'victory' ,'wrong' ,'stop'];
-const button = document.querySelector("#buttons");
+const soundNames = [
+  "applause",
+  "boo",
+  "gasp",
+  "tada",
+  "victory",
+  "wrong"
+];
 
-const audioMap ={};
-sounds.forEach(sound=>{
-	audioMap[sound]=new Audio (`sounds/${sound}.mp3`);
-})
-sounds.forEach(sound=>{
-	const btn = document.createElement("button");
-	btn.classList.add("btn");
+// Play selected sound
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    stopAllSounds();
 
-	if(sound=="stop"){
-		btn.classList.add("stop");
-	}
-	btn.innerText = sound;
+    const audio = document.getElementById(btn.innerText);
+    audio.play();
+  });
+});
 
-	btn.addEventListener('click' ,()=>{
-		stopAllSounds();
-		audioMap[sound].play();
-})
-	button.append(btn);
-})
-	function stopAllSounds(){
-		sounds.forEach(sound=>{
-			const audio = audioMap[sound];
-			audio.pause()
-			audio.currentTime=0;
-		});
-	}
+// Stop button functionality
+document.querySelector(".stop").addEventListener("click", stopAllSounds);
+
+// Stop all sounds
+function stopAllSounds() {
+  soundNames.forEach(name => {
+    const audio = document.getElementById(name);
+    audio.pause();
+    audio.currentTime = 0;
+  });
+}
